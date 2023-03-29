@@ -2,10 +2,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import DisplayMembers from './DisplayMembers';
 
-function GroupMembers() {
+function GroupMembers(props) {
     const [showMembers, setShowMembers] = useState(false);
     const [showAddMember, setShowAddMember] = useState(false);
   
@@ -20,7 +20,11 @@ function GroupMembers() {
             <Modal.Title>Group Members</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <DisplayMembers></DisplayMembers>
+
+            {props.groupMembers.map(groupMember =>
+              <DisplayMembers groupMember={groupMember}></DisplayMembers>
+            )}
+
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => setShowMembers(false)}>

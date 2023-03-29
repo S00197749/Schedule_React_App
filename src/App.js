@@ -1,26 +1,40 @@
 
-import React from "react";
+import React, {useState} from "react";
 import CreateGroup from "./components/CreateGroup";
-import GroupMembers from "./components/GroupMembers";
 import GroupSidebar from "./components/GroupSidebar";
-import ManageGroup from "./components/ManageGroup";
+import Main from "./components/Main";
 
-function App() {
+function App() {	
+	const [groups, setGroups] = useState([]);
+	const [showGroup, setShowGroup] = useState(0);
 
-  return (
-    <div class="wrapper">
+  	const url = 'https://schedule-functions.azurewebsites.net/api/GetGroups?code=TiTW1hY4v3MoXwWStwX1CffVdyoP0pQqFXD9iCUdocCmAzFu9aFojA==&user_id=1'
+	const fetchData = async () => {
+		const result = await fetch(url)
+		const jsonResult = await result.json();
+
+		setGroups(jsonResult)
+	}
+
+	React.useEffect(() => {
+
+		fetchData();
+	  },[]);
+
+	return (
+	<div class="wrapper">
 		<nav id="sidebar" class="custom-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<ul class="sidebar-nav">
 					<li class="sidebar-item mt-2">
 						<a class="sidebar-link" href="#">
-              				<CreateGroup></CreateGroup>
+							<CreateGroup></CreateGroup>
 						</a>
 					</li>
-                    <li class="sidebar-header mb-4">
+					<li class="sidebar-header mb-4">
 						--------
 					</li>
-					<GroupSidebar></GroupSidebar>
+					<GroupSidebar callSetShowGroup={(group_Id)=>setShowGroup(group_Id)} groups={groups}></GroupSidebar>
 				</ul>
 			</div>
 		</nav>
@@ -28,6 +42,11 @@ function App() {
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
+						<li>
+							<a onClick={fetchData} class="btn btn-primary me-5" href="#" data-bs-toggle="dropdown">
+								Login
+							</a>
+						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
 								<i class="align-middle" data-feather="settings"></i>
@@ -48,33 +67,18 @@ function App() {
 			</nav>
 
 			<main class="content">
-				<div class="container-fluid p-0">
-					<div class="row mb-2 mb-xl-3">
-						<div class="col-auto d-none d-sm-block">
-							<h3>Schedule</h3>
-						</div>
-						<div class="row justify-content-end">
-							<div class="col-auto">
-								<GroupMembers></GroupMembers>
-								<ManageGroup></ManageGroup>
-							</div>
-						</div>
-					</div>
-					<div class="row mb-2 mb-xl-3">
-						<div class="card">
-							<div class="card-body">
-								<div id="fullcalendar"></div>
-							</div>
-						</div>			
-					</div>
-				</div>
+				{groups.map(group =>{
+					if(showGroup === group.group_Id)
+						return <Main group={group}></Main>
+					}		
+				)}
 			</main>
 
 			<footer class="footer">
 			</footer>
 		</div>
 	</div>
-  );
+	);
 }
 
 export default App;

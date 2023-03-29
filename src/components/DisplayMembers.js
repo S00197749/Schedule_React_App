@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-function DisplayMembers() {
+function DisplayMembers(props) {
     return (
       <Card className='border border-secondary h-25'>
         <Card.Body>
@@ -10,7 +10,7 @@ function DisplayMembers() {
               <img src="img/avatars/avatar.png" class="avatar img-fluid rounded-circle me-1" alt="Member" />
             </div>
             <div className='col-6 col-sm-7'>
-              <h4>Name</h4>
+              <h4>{props.groupMember.user_Name}</h4>
             </div>
             <div className='col-3'>
               <span>

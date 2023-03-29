@@ -6,11 +6,11 @@ import GroupSettings from './GroupSettings';
 import GroupActivities from './GroupActivities';
 import DisplayActivities from './DisplayActivities';
 
-function ManageGroup() {
+function ManageGroup(props) {
     const [showSettings, setShowSettings] = useState(false);
     const [showActivities, setShowActivities] = useState(false);
     const [showCreateActivity, setShowCreateActivity] = useState(false);
-  
+
     return (
       <>
         <Button className='mx-4' variant="primary" onClick={() => setShowSettings(true)}>
@@ -21,27 +21,14 @@ function ManageGroup() {
           <Modal.Header closeButton>
             <Modal.Title>Manage Group</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-          <Nav className="justify-content-center" fill  variant="pills" defaultActiveKey="1">
-            <Nav.Item>
-              <Nav.Link onClick={() => setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)} eventKey="1">Settings</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)} eventKey="2">Activities</Nav.Link>
-            </Nav.Item>
-          </Nav>
 
-            <GroupSettings></GroupSettings>
+          <GroupSettings
+             group={props.group}
+             callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
+             callShowActivities={()=> setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)}
+             callHideSettings={()=> setShowSettings(false)}>
+          </GroupSettings>
 
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowSettings(false)}>
-              Close
-            </Button>
-            <Button type='submit' form='GroupSettingsForm' variant="primary" onClick={() => setShowSettings(false)}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
         </Modal>
 
         <Modal backdrop="static" show={showCreateActivity} onHide={() => setShowCreateActivity(false)} animation={false} centered>
@@ -49,14 +36,14 @@ function ManageGroup() {
             <Modal.Title>Manage Group</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <Nav className="justify-content-center" fill  variant="pills" defaultActiveKey="2">
-            <Nav.Item>
-              <Nav.Link onClick={() => setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)} eventKey="1">Settings</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)} eventKey="2">Activities</Nav.Link>
-            </Nav.Item>
-          </Nav>
+            <Nav className="justify-content-center" fill  variant="pills" defaultActiveKey="2">
+              <Nav.Item>
+                <Nav.Link onClick={() => setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)} eventKey="1">Settings</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link onClick={() => setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)} eventKey="2">Activities</Nav.Link>
+              </Nav.Item>
+            </Nav>
 
             <GroupActivities></GroupActivities>
 
@@ -76,16 +63,18 @@ function ManageGroup() {
             <Modal.Title>Manage Group</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <Nav className="justify-content-center" fill  variant="pills" defaultActiveKey="2">
-            <Nav.Item>
-              <Nav.Link onClick={() => setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)} eventKey="1">Settings</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)} eventKey="2">Activities</Nav.Link>
-            </Nav.Item>
-          </Nav>
+            <Nav className="justify-content-center" fill  variant="pills" defaultActiveKey="2">
+              <Nav.Item>
+                <Nav.Link onClick={() => setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)} eventKey="1">Settings</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link onClick={() => setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)} eventKey="2">Activities</Nav.Link>
+              </Nav.Item>
+            </Nav>
 
-            <DisplayActivities callShowActivities={()=>setShowCreateActivity(true) + setShowActivities(false)}></DisplayActivities>
+            {props.groupActivities.map(groupActivity =>
+              <DisplayActivities groupActivity={groupActivity} callShowActivities={()=>setShowCreateActivity(true) + setShowActivities(false)}></DisplayActivities>
+            )}
 
           </Modal.Body>
           <Modal.Footer>
