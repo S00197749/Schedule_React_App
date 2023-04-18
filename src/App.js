@@ -1,7 +1,7 @@
 
 import React, {useState} from "react";
-import CreateGroup from "./components/CreateGroup";
-import GroupSidebar from "./components/GroupSidebar";
+import CreateGroup from "./components/Groups/CreateGroup";
+import GroupSidebar from "./components/Groups/GroupSidebar";
 import Main from "./components/Main";
 
 function App() {	

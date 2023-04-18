@@ -15,7 +15,20 @@ function GroupMembers(props) {
             Group Members
         </Button>
   
-        <Modal backdrop="static" show={showMembers} onHide={() => setShowMembers(false)} animation={false} centered>
+        <Modal 
+        style={{
+          maxHeight: '580px',
+          margin: 0,
+          position: 'absolute',
+          top: '50%',
+          transform: 'translateY(-50%)'
+        }}
+        scrollable={true} 
+        backdrop="static" 
+        show={showMembers} 
+        onHide={() => setShowMembers(false)} 
+        animation={false} 
+        >
           <Modal.Header closeButton>
             <Modal.Title>Group Members</Modal.Title>
           </Modal.Header>

@@ -1,5 +1,5 @@
-import ManageGroup from "./ManageGroup";
-import GroupMembers from "./GroupMembers";
+import ManageGroup from "./Groups/ManageGroup";
+import GroupMembers from "./Members/GroupMembers";
 import React, { useState } from "react";
 
 function Main(props) {
