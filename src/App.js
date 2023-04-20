@@ -43,9 +43,7 @@ function App() {
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<li>
-							<a onClick={fetchData} class="btn btn-primary me-5" href="#" data-bs-toggle="dropdown">
-								Login
-							</a>
+							
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">

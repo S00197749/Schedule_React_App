@@ -1,6 +1,7 @@
 import ManageGroup from "./Groups/ManageGroup";
 import GroupMembers from "./Members/GroupMembers";
 import React, { useState } from "react";
+import Schedule from "./Schedule/Schedule";
 
 function Main(props) {
   const [groupMembers, setGroupMembers] = useState([]);
@@ -43,13 +44,7 @@ function Main(props) {
           </div>
         </div>
         <div class="row mb-2 mb-xl-3">
-          <div class="card">
-            <div class="card-body">
-              <div id="fullcalendar">
-                
-              </div>
-            </div>
-          </div>			
+          <Schedule group={props.group}></Schedule>		      
         </div>
       </div>
   );
