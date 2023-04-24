@@ -7,18 +7,21 @@ function Main(props) {
   const [groupMembers, setGroupMembers] = useState([]);
   const [groupActivities, setGroupActivities] = useState([]);
 
-  const getMembersUrl = "https://schedule-functions.azurewebsites.net/api/GetGroupMembers?code=ncp67DrFLYo3QOPXNMO-rn-C_XOJnxThhLZoiX6s8dLJAzFuOrq_YQ==&group_id=" + props.group.group_Id;
-	const getActivitiesUrl = "https://schedule-functions.azurewebsites.net/api/GetGroupActivities?code=DwwGHy69g92gFwXoOfBmimS9aaOmBjK1Y0HMc-O-DyyxAzFuDaQDpQ==&group_Id=" + props.group.group_Id;
+  const getMembersUrl = "https://schedule-functions.azurewebsites.net/api/GetGroupMembers?code=ncp67DrFLYo3QOPXNMO-rn-C_XOJnxThhLZoiX6s8dLJAzFuOrq_YQ==";
+	const getActivitiesUrl = "https://schedule-functions.azurewebsites.net/api/GetGroupActivities?code=DwwGHy69g92gFwXoOfBmimS9aaOmBjK1Y0HMc-O-DyyxAzFuDaQDpQ==";
+
+  const u = 1;
+  const g = props.group.group_Id;
 
   const fetchMembersData = async () => {
-		const membersResult = await fetch(getMembersUrl)
+		const membersResult = await fetch(getMembersUrl + "&g=" + g + "&u=" + u)
 		const membersJsonResult = await membersResult.json();
 
 		setGroupMembers(membersJsonResult)
 	}
 
   const fetchActivitiesData = async () => {
-		const activitiesResult = await fetch(getActivitiesUrl)
+		const activitiesResult = await fetch(getActivitiesUrl + "&g=" + g + "&u=" + u)
 		const activitiesJsonResult = await activitiesResult.json();
 
 		setGroupActivities(activitiesJsonResult)

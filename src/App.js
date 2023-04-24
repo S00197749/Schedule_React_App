@@ -8,9 +8,11 @@ function App() {
 	const [groups, setGroups] = useState([]);
 	const [showGroup, setShowGroup] = useState(0);
 
-  	const url = 'https://schedule-functions.azurewebsites.net/api/GetGroups?code=TiTW1hY4v3MoXwWStwX1CffVdyoP0pQqFXD9iCUdocCmAzFu9aFojA==&user_id=1'
+  	const url = 'https://schedule-functions.azurewebsites.net/api/GetGroups?code=TiTW1hY4v3MoXwWStwX1CffVdyoP0pQqFXD9iCUdocCmAzFu9aFojA=='
+	const u = 1;
+	
 	const fetchData = async () => {
-		const result = await fetch(url)
+		const result = await fetch(url + "&u=" + u)
 		const jsonResult = await result.json();
 
 		setGroups(jsonResult)

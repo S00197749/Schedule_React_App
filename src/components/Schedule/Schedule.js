@@ -6,13 +6,13 @@ function Schedule(props) {
     const data = {
         dataSource: [{
             Subject: "Meeting",
-            EndTime: new Date(2023, 3, 19, 16, 30),
-            StartTime: new Date(2023, 3, 19, 14, 30)
+            EndTime: new Date(2023, 3, 25, 16, 30),
+            StartTime: new Date(2023, 3, 25, 14, 30)
         },
         {
             Subject: "Meeting 2",
-            EndTime: new Date(2023, 3, 19, 20, 30),
-            StartTime: new Date(2023, 3, 19, 18, 30)
+            EndTime: new Date(2023, 3, 24, 20, 30),
+            StartTime: new Date(2023, 3, 24, 18, 30)
         }]
     }
 
