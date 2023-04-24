@@ -1,8 +1,7 @@
-
 import React from "react";
 import { Inject,ScheduleComponent,Day,Week,Month,ViewsDirective, ViewDirective } from "@syncfusion/ej2-react-schedule";
 
-function Schedule(props) {
+function GroupSchedule(props) {
     const data = {
         dataSource: [{
             Subject: "Meeting",
@@ -34,4 +33,4 @@ function Schedule(props) {
     );
 }
 
-export default Schedule;
+export default GroupSchedule;

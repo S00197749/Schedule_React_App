@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import CreateGroup from "./components/Groups/CreateGroup";
 import GroupSidebar from "./components/Groups/GroupSidebar";
 import Main from "./components/Main";
+import UserSchedule from "./components/Schedule/UserSchedule"
 
 function App() {	
 	const [groups, setGroups] = useState([]);
@@ -36,17 +37,18 @@ function App() {
 					<li class="sidebar-header mb-4">
 						--------
 					</li>
-					<GroupSidebar callSetShowGroup={(group_Id)=>setShowGroup(group_Id)} groups={groups}></GroupSidebar>
+					<GroupSidebar callSetShowGroup={(group_Id)=> setShowGroup(group_Id)} groups={groups}></GroupSidebar>
 				</ul>
 			</div>
 		</nav>
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
-				<div class="navbar-collapse collapse">
+				<div class="navbar-collapse collapse d-flex justify-content-start">
+					<a className="btn btn-primary justify-content-start" 
+						onClick={() => setShowGroup(0)}>
+						My Schedule
+					</a>
 					<ul class="navbar-nav navbar-align">
-						<li>
-							
-						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
 								<i class="align-middle" data-feather="settings"></i>
@@ -67,10 +69,20 @@ function App() {
 			</nav>
 
 			<main class="content">
+				<div>
+					{(() => {
+						if(showGroup === 0) {
+						return (
+							<UserSchedule user_Id={1}/>
+						)
+						}
+					})()}
+				</div>
+
 				{groups.map(group =>{
 					if(showGroup === group.group_Id)
-						return <Main group={group}></Main>
-					}		
+						return <Main group={group}></Main>					
+					}							
 				)}
 			</main>
 
