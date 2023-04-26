@@ -1,4 +1,3 @@
-
 import React, {useState} from "react";
 import CreateGroup from "./components/Groups/CreateGroup";
 import GroupSidebar from "./components/Groups/GroupSidebar";
@@ -18,9 +17,8 @@ function App() {
 	const [showGroup, setShowGroup] = useState(0);
 	const [invites, setInvites] = useState([]);
 	const [showInvites, setShowInvites] = useState(false);
-	const [showSidebar, setShowSidebar] = useState(false);
 
-	const u = 1;
+	const u = 2;
 	
 	const fetchGroupsData = async () => {
 		const url = 'https://schedule-functions.azurewebsites.net/api/GetGroups?code=TiTW1hY4v3MoXwWStwX1CffVdyoP0pQqFXD9iCUdocCmAzFu9aFojA=='
@@ -50,13 +48,13 @@ function App() {
 	<div class="wrapper">
 		<div class="main">
 			{[false].map((expand) => (
-			<Navbar bg="light" expand={expand} className="mb-3 p-0 d-flex flex-row" height="20px">
+			<Navbar style={{backgroundColor:"lightgrey"}} expand={expand} className="mb-3 p-0 d-flex flex-row" height="20px">
 				<Container fluid>
 					<Navbar.Brand href="#">
-						<Navbar.Toggle className="me-4"/>
-						<a className="btn btn-primary justify-content-start" 
+						<Navbar.Toggle className="me-4 ms-0 p-1" style={{borderColor:"black"}}/>
+						<a className="btn btn-primary justify-content-start " 
 						onClick={() => setShowGroup(0)}>
-							My Schedule
+							Schedule
 						</a>
 						<a className="btn btn-success justify-content-start ms-3" 
 						onClick={() => setShowInvites(true)}>
@@ -65,7 +63,7 @@ function App() {
 					</Navbar.Brand>
 					<NavDropdown 
 					drop="start"
-					title={<img src="img/avatars/avatar.png" class="rounded-circle" alt="Profile" />}>
+					title={<img src="img/avatars/avatar.png" class="avatar rounded-circle " alt="Profile" />}>
 							<NavDropdown.Item href="#action3">Action</NavDropdown.Item>
 							<NavDropdown.Item href="#action4">
 								Another action
@@ -83,7 +81,7 @@ function App() {
 						</Offcanvas.Header>
 						<Offcanvas.Body>
 							<Nav className="justify-content-end flex-grow-1 pe-3">
-								<div className="mb-3 ms-1"><CreateGroup user_Id={u}></CreateGroup></div>
+								<div className="mb-3 ms-1"><CreateGroup fetchGroupsData={()=> fetchGroupsData()} user_Id={u}></CreateGroup></div>
 								<div className="border-top my-3"></div>
 								<GroupSidebar callSetShowGroup={(group_Id)=> setShowGroup(group_Id)} groups={groups}></GroupSidebar>
 							</Nav>
@@ -115,7 +113,10 @@ function App() {
 						<Modal.Body>
 
 							{invites.map(invite =>
-								<DisplayInvites user_Id={u} invite={invite}></DisplayInvites>
+								<DisplayInvites 
+								user_Id={u} 
+								invite={invite}
+								fetchInvitesData={()=> fetchInvitesData()}></DisplayInvites>
 							)}
 
 						</Modal.Body>
@@ -138,7 +139,12 @@ function App() {
 
 				{groups.map(group =>{
 					if(showGroup === group.group_Id)
-						return <Main group={group} user_Id={u}></Main>					
+						return <Main 
+						group={group} 
+						user_Id={u}
+						fetchGroupsData={()=> fetchGroupsData()}>
+							
+						</Main>					
 					}							
 				)}
 			</main>

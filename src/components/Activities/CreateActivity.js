@@ -44,7 +44,8 @@ function CreateActivity(props) {
             console.log('Updated')
         })
 
-        window.location.reload(false);
+        props.fetchActivitiesData();
+        props.callShowActivities();
     }
 
     return (

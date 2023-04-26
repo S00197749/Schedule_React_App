@@ -1,10 +1,5 @@
 import React, { useState } from "react";
 import { Inject,ScheduleComponent,Day,Week,Month,ViewsDirective, ViewDirective } from "@syncfusion/ej2-react-schedule";
-import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
-import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { Form } from "react-bootstrap";
-import { Card } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import CreateUserSchedule from "./CreateUserSchedule";
 import UpdateUserSchedule from "./UpdateUserSchedule";
 
@@ -38,9 +33,15 @@ function GroupSchedule(props) {
     function contentTemplate(timeSlotProp) {
         return (<div>
                     {timeSlotProp.elementType === 'cell' ?
-                        <CreateUserSchedule user_Id={props.user_Id} timeSlot={timeSlotProp}></CreateUserSchedule>
+                        <CreateUserSchedule 
+                        callFetch={()=> fetchUserScheduleData()}
+                        user_Id={props.user_Id} 
+                        timeSlot={timeSlotProp}></CreateUserSchedule>
                     :                       
-                        <UpdateUserSchedule user_Id={props.user_Id} timeSlot={timeSlotProp}></UpdateUserSchedule>
+                        <UpdateUserSchedule 
+                        callFetch={()=> fetchUserScheduleData()}
+                        user_Id={props.user_Id} 
+                        timeSlot={timeSlotProp}></UpdateUserSchedule>
                     }
                 </div>);
     }

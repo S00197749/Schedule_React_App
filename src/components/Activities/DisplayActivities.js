@@ -26,7 +26,7 @@ function DisplayActivities(props) {
         console.log('Updated')
     })
 
-    window.location.reload(false);
+    props.fetchActivitiesData();
   }
 
   return (
@@ -68,7 +68,12 @@ function DisplayActivities(props) {
               </Nav.Item>
             </Nav>
 
-            <UpdateActivity user_Id={props.user_Id} groupActivity={props.groupActivity} ></UpdateActivity>
+            <UpdateActivity 
+            user_Id={props.user_Id} 
+            groupActivity={props.groupActivity} 
+            fetchActivitiesData={()=> props.fetchActivitiesData()}
+            callShowActivities={()=> props.callShowActivities()}
+            callHideUpdateActivities={()=> setShowUpdateActivity(false)}></UpdateActivity>
 
           </Modal.Body>
           <Modal.Footer>
@@ -93,7 +98,7 @@ function DisplayActivities(props) {
             <Button variant="secondary" onClick={() => setShowConfirmDeleteActivity(false)}>
               Cancel
             </Button>
-            <Button  onClick={() => DeleteActivity() + setShowUpdateActivity(false)} variant="danger">
+            <Button  onClick={() => DeleteActivity() + setShowConfirmDeleteActivity(false)} variant="danger">
               Delete
             </Button>         
           </Modal.Footer>

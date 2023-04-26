@@ -32,8 +32,6 @@ function GroupSchedule(props) {
             args.element.style.backgroundColor = '#7fa900';
         else if((args.data.eventType != 'Available'))
             args.element.style.backgroundColor = '#8e24aa';
-
-        //args.element.style.backgroundColor = '#7fa900';
     }
 
     function headerTemplate(timeSlotProp) {
@@ -47,14 +45,14 @@ function GroupSchedule(props) {
                         group_Id={props.group.group_Id} 
                         user_Id={props.user_Id} 
                         timeSlot={timeSlotProp} 
-                        callFetch={()=> fetchGroupScheduleData}>
+                        callFetch={()=> fetchGroupScheduleData()}>
                     </UpdateGroupMeeting>
                 :
                     <CreateGroupMeeting 
                         group_Id={props.group.group_Id} 
                         user_Id={props.user_Id} 
                         timeSlot={timeSlotProp} 
-                        callFetch={()=> fetchGroupScheduleData}>
+                        callFetch={()=> fetchGroupScheduleData()}>
                     </CreateGroupMeeting>}
             </div>);
         }

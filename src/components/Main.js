@@ -41,13 +41,30 @@ function Main(props) {
           </div>
           <div class="row justify-content-end">
             <div class="col-auto">
-              <GroupMembers user_Id={props.user_Id} group={props.group} groupMembers={groupMembers}></GroupMembers>
-              <ManageGroup user_Id={props.user_Id} group={props.group} groupActivities={groupActivities}></ManageGroup>
+              <GroupMembers 
+              user_Id={props.user_Id} 
+              group={props.group} 
+              groupMembers={groupMembers}
+              fetchMembersData={()=> fetchMembersData()}>
+
+              </GroupMembers>
+
+              <ManageGroup 
+              fetchGroupsData={()=> props.fetchGroupsData()}
+              fetchActivitiesData={()=> fetchActivitiesData()}
+              user_Id={props.user_Id} 
+              group={props.group} 
+              groupActivities={groupActivities}>
+
+              </ManageGroup>
             </div>
           </div>
         </div>
         <div class="row mb-2 mb-xl-3">
-          <GroupSchedule user_Id={props.user_Id} group={props.group}></GroupSchedule>		      
+          <GroupSchedule 
+          user_Id={props.user_Id} 
+          group={props.group}>
+            </GroupSchedule>		      
         </div>
       </div>
   );

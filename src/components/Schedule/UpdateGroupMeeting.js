@@ -58,7 +58,7 @@ function UpdateGroupMeeting(props) {
             console.log('Updated')
         })
 
-        window.location.reload(false);
+        props.callFetch();
     }
 
     return (
@@ -107,7 +107,7 @@ function UpdateGroupMeeting(props) {
                     <Button variant="secondary" onClick={() => setShowConfirmDeleteMeeting(false)}>
                     Cancel
                     </Button>
-                    <Button  onClick={() => DeleteGroupMeeting()} variant="danger">
+                    <Button  onClick={() => DeleteGroupMeeting() + setShowConfirmDeleteMeeting(false)} variant="danger">
                     Delete
                     </Button>         
                 </Modal.Footer>

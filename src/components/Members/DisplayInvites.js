@@ -25,7 +25,7 @@ function DisplayInvites(props) {
         console.log('Updated')
     })
 
-    window.location.reload(false);
+    props.fetchInvitesData();
   }
 
   return (
@@ -41,7 +41,7 @@ function DisplayInvites(props) {
             </div>
             <div className='col-3 col-sm-2'>
               <span>
-                <Button onClick={() => setAccepted(false) + setShowConfirmAccept(true)} variant='danger'>Reject</Button>
+                <Button onClick={() => setAccepted(false) + setShowConfirmReject(true)} variant='danger'>Reject</Button>
               </span>
             </div>
             <div className='col-2 col-sm-2'>
@@ -65,7 +65,7 @@ function DisplayInvites(props) {
             <Button variant="secondary" onClick={() => setShowConfirmReject(false)}>
               Cancel
             </Button>
-            <Button  onClick={() => UpdateInvite()} variant="danger">
+            <Button  onClick={() => UpdateInvite() + setShowConfirmReject(false)} variant="danger">
               Reject
             </Button>         
           </Modal.Footer>
@@ -75,7 +75,7 @@ function DisplayInvites(props) {
       <Modal size="sm" backdrop="static" show={showConfirmAccept} onHide={() => setShowConfirmAccept(false)} animation={false} centered>
         <div style={{border: '1px solid black', borderRadius: '10px', backgroundColor: 'whitesmoke'}}>
           <Modal.Header closeButton>
-            <Modal.Title>Confirm Removal</Modal.Title>
+            <Modal.Title>Confirm Approval</Modal.Title>
           </Modal.Header>
           <Modal.Body >
             <h3 style={{textAlign: "center"}}>Are you sure you want to join the following group: <br></br> "{props.invite.group_Name}"?</h3>
@@ -84,7 +84,7 @@ function DisplayInvites(props) {
             <Button variant="secondary" onClick={() => setShowConfirmAccept(false)}>
               Cancel
             </Button>
-            <Button  onClick={() => UpdateInvite()} variant="success">
+            <Button  onClick={() => UpdateInvite() + setShowConfirmAccept(false)} variant="success">
               Join
             </Button>         
           </Modal.Footer>

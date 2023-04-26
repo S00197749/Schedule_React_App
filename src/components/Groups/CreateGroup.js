@@ -29,7 +29,8 @@ function CreateGroup(props) {
           console.log('Updated')
       })
 
-      window.location.reload(false);
+      props.fetchGroupsData();
+      setShowCreateGroup(false)
     }
 
     return (
@@ -63,7 +64,7 @@ function CreateGroup(props) {
                 </Card>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={() => props.callHideSettings()}>
+            <Button variant="secondary" onClick={() => setShowCreateGroup(false)}>
                 Close
             </Button>
             <Button type='submit' form='CreateGroupForm' variant="primary">

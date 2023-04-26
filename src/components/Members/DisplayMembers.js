@@ -22,7 +22,7 @@ function DisplayMembers(props) {
         console.log('Updated')
     })
 
-    window.location.reload(false);
+    props.fetchMembersData();
   }
     return (
       <>
@@ -56,7 +56,7 @@ function DisplayMembers(props) {
               <Button variant="secondary" onClick={() => setShowConfirmDeleteMember(false)}>
                 Cancel
               </Button>
-              <Button  onClick={() => DeleteMember()} variant="danger">
+              <Button  onClick={() => DeleteMember() + setShowConfirmDeleteMember(false)} variant="danger">
                 Delete
               </Button>         
             </Modal.Footer>

@@ -4,7 +4,6 @@ import Nav from 'react-bootstrap/Nav';
 import { useState } from 'react';
 import DisplayActivities from '../Activities/DisplayActivities';
 import CreateActivity from '../Activities/CreateActivity';
-import UpdateActivity from '../Activities/UpdateActivity';
 import UpdateGroup from './UpdateGroup';
 
 function ManageGroup(props) {
@@ -25,6 +24,7 @@ function ManageGroup(props) {
           </Modal.Header>
 
           <UpdateGroup
+            fetchGroupsData={()=> props.fetchGroupsData()}
             user_Id={props.user_Id}
             group={props.group}
             callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
@@ -42,6 +42,7 @@ function ManageGroup(props) {
             <CreateActivity 
               user_Id={props.user_Id}
               group={props.group}
+              fetchActivitiesData={()=> props.fetchActivitiesData()}
               callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
               callShowActivities={()=> setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)}
               callHideSettings={()=> setShowSettings(false)}>             
@@ -79,6 +80,7 @@ function ManageGroup(props) {
               <DisplayActivities 
                 user_Id={props.user_Id}
                 groupActivity={groupActivity} 
+                fetchActivitiesData={()=> props.fetchActivitiesData()}
                 callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
                 callShowActivities={()=> setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)}
                 callHideActivities={()=> setShowActivities(false)}

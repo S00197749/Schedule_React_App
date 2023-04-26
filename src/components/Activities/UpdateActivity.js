@@ -42,7 +42,9 @@ function UpdateActivity(props) {
             console.log('Updated')
         })
 
-        window.location.reload(false);
+        props.fetchActivitiesData();
+        props.callHideUpdateActivities();
+        props.callShowActivities();
     }
 
     return (

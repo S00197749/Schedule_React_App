@@ -30,7 +30,8 @@ function GroupMembers(props) {
           console.log('Updated')
       })
 
-      window.location.reload(false);
+      setShowMembers(true);
+      setShowAddMember(false);
     }
 
     return (
@@ -59,7 +60,10 @@ function GroupMembers(props) {
           <Modal.Body>
 
             {props.groupMembers.map(groupMember =>
-              <DisplayMembers user_Id={props.user_Id} groupMember={groupMember}></DisplayMembers>
+              <DisplayMembers
+               user_Id={props.user_Id} 
+               groupMember={groupMember}
+               fetchMembersData={()=> props.fetchMembersData()}></DisplayMembers>
             )}
 
           </Modal.Body>

@@ -44,7 +44,7 @@ function UpdateUserSchedule(props) {
             console.log('Updated')
         })
 
-        window.location.reload(false);
+        props.callFetch();
     }
 
     const DeleteUserSchedule = async (e) => {
@@ -69,7 +69,7 @@ function UpdateUserSchedule(props) {
             console.log('Updated')
         })
 
-        window.location.reload(false);
+        props.callFetch();
     }
 
     return (
@@ -127,7 +127,7 @@ function UpdateUserSchedule(props) {
                     <Button variant="secondary" onClick={() => setShowConfirmDeleteSchedule(false)}>
                     Cancel
                     </Button>
-                    <Button  onClick={() => DeleteUserSchedule()} variant="danger">
+                    <Button  onClick={() => DeleteUserSchedule() + setShowConfirmDeleteSchedule(false)} variant="danger">
                     Delete
                     </Button>         
                 </Modal.Footer>

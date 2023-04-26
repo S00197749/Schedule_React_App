@@ -27,7 +27,7 @@ function UpdateGroup(props) {
             console.log('Updated')
         })
 
-        window.location.reload(false);
+        props.fetchGroupsData();
     }
 
     return (
