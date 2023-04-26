@@ -25,10 +25,11 @@ function ManageGroup(props) {
           </Modal.Header>
 
           <UpdateGroup
-             group={props.group}
-             callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
-             callShowActivities={()=> setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)}
-             callHideSettings={()=> setShowSettings(false)}>
+            user_Id={props.user_Id}
+            group={props.group}
+            callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
+            callShowActivities={()=> setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)}
+            callHideSettings={()=> setShowSettings(false)}>
           </UpdateGroup>
 
         </Modal>
@@ -39,6 +40,7 @@ function ManageGroup(props) {
           </Modal.Header>
 
             <CreateActivity 
+              user_Id={props.user_Id}
               group={props.group}
               callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
               callShowActivities={()=> setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)}
@@ -75,6 +77,7 @@ function ManageGroup(props) {
 
             {props.groupActivities.map(groupActivity =>
               <DisplayActivities 
+                user_Id={props.user_Id}
                 groupActivity={groupActivity} 
                 callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
                 callShowActivities={()=> setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)}
@@ -89,33 +92,6 @@ function ManageGroup(props) {
               Create Activity
             </Button>
           </Modal.Footer>
-        </Modal>
-
-        <Modal backdrop="static" show={showUpdateActivity} onHide={() => setShowUpdateActivity(false)} animation={false} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Manage Group</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Nav className="justify-content-center" fill  variant="pills" defaultActiveKey="2">
-            <Nav.Item>
-              <Nav.Link onClick={() => props.callShowSettings()} eventKey="1">Settings</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => props.callShowActivities()} eventKey="2">Activities</Nav.Link>
-            </Nav.Item>
-          </Nav>
-
-          <UpdateActivity groupActivity={props.groupActivity} ></UpdateActivity>
-
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => props.callShowActivities()}>
-            Cancel
-          </Button>
-          <Button type='submit' form='UpdateGroupActivityForm' variant="primary">
-            Save Changes
-          </Button>
-        </Modal.Footer>
         </Modal>
       </>
     );

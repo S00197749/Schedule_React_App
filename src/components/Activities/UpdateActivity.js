@@ -26,7 +26,7 @@ function UpdateActivity(props) {
         const url = "https://schedule-functions.azurewebsites.net/api/UpdateActivity?code=19CX3LQx4_96TRDEakEdm0m-62E0sbPE-2RF0VE_S6SVAzFuEzdqPQ==";
 
         const data = {
-            User_Id: 1
+            User_Id: props.user_Id
             , Activity_Id: props.groupActivity.activity_Id
             , Group_Id: props.groupActivity.group_Id 
             , Activity_Name: payload.activity_Name

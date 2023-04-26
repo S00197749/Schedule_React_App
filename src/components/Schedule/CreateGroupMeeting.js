@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { Button } from 'react-bootstrap';
 
-function CreateUserSchedule(props) { 
+function CreateGroupMeeting(props) { 
 
-    const SubmitCreateUserScheduleForm = async (e) => {
+    const SubmitCreateGroupMeetingForm = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target);
         const payload = Object.fromEntries(formData);    
@@ -17,11 +17,12 @@ function CreateUserSchedule(props) {
             isRecurring = payload.isRecurring;
         }
 
-        const url = "https://schedule-functions.azurewebsites.net/api/CreateUserSchedule?code=NF2IUGWzYTbg8EfThB37wIe5Odh6Q1INWvteWlidD77fAzFuhzc3bg==";
+        const url = "https://schedule-functions.azurewebsites.net/api/CreateMeeting?code=6d0hX6veeQI0m1lUTpPxcKYwjelTm2YukrAD0M0klghRAzFu_eJFQQ==";
 
         const data = {
             User_Id: props.user_Id
-            , IsRecurring: isRecurring
+            , Group_Id: props.group_Id
+            , Activity_Id: 1
             , StartTime: payload.startTime
             , EndTime: payload.endTime}
 
@@ -33,14 +34,14 @@ function CreateUserSchedule(props) {
             console.log('Updated')
         })
 
-        window.location.reload(false);
+        props.callFetch();
     }
 
     return (
         <div>
             <Card body>
-                <Form id='CreateUserScheduleForm' onSubmit={SubmitCreateUserScheduleForm}>
-                    <h3>Add Availability</h3>
+                <Form id='CreateGroupMeetingForm' onSubmit={SubmitCreateGroupMeetingForm}>
+                    <h3>Add Meeting</h3>
                     <br></br>
                     <br></br>
                     <DateTimePickerComponent name="startTime" format='yyyy/MM/dd HH:mm:ss' value={new Date(props.timeSlot.startTime)} className="e-field"></DateTimePickerComponent>
@@ -50,8 +51,7 @@ function CreateUserSchedule(props) {
                     <br></br>
                     <br></br>   
                     <div>
-                        <label for="isRecurring">Recurring Weekly</label>
-                        <input className="mx-2" type="checkbox" name="isRecurring" value="true"></input>
+                        
                     </div>                     
                 </Form>
             </Card>
@@ -60,7 +60,7 @@ function CreateUserSchedule(props) {
                     <div className="col-9">
                     </div>
                     <div className="col">
-                        <Button type='submit' form='CreateUserScheduleForm' variant="primary">
+                        <Button type='submit' form='CreateGroupMeetingForm' variant="primary">
                             Save
                         </Button>
                     </div>
@@ -70,4 +70,4 @@ function CreateUserSchedule(props) {
     );
   }
 
-export default CreateUserSchedule;
+export default CreateGroupMeeting;

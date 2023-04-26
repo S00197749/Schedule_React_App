@@ -9,6 +9,30 @@ function GroupMembers(props) {
     const [showMembers, setShowMembers] = useState(false);
     const [showAddMember, setShowAddMember] = useState(false);
   
+    const SubmitInviteMemberForm = async (e) => {
+      e.preventDefault()
+      const formData = new FormData(e.target);
+      const payload = Object.fromEntries(formData);    
+
+      const url = "https://schedule-functions.azurewebsites.net/api/CreateInvite?code=SqXH1aM9I-tnz2TueNCp9FJHpoPW5dZc9XnZIMIDWNk4AzFubV2fZg==";
+
+      const data = {
+          User_Id: props.user_Id
+          , Group_Id: props.group.group_Id 
+          , Email: payload.email}
+
+
+      await fetch(url, {
+          method: 'POST',
+          headers: {  "Content-Type": "application/json"  },
+          body: JSON.stringify(data)
+      }).then(()=>{
+          console.log('Updated')
+      })
+
+      window.location.reload(false);
+    }
+
     return (
       <>
         <Button variant="primary" onClick={() => setShowMembers(true)}>
@@ -35,7 +59,7 @@ function GroupMembers(props) {
           <Modal.Body>
 
             {props.groupMembers.map(groupMember =>
-              <DisplayMembers groupMember={groupMember}></DisplayMembers>
+              <DisplayMembers user_Id={props.user_Id} groupMember={groupMember}></DisplayMembers>
             )}
 
           </Modal.Body>
@@ -55,10 +79,10 @@ function GroupMembers(props) {
           </Modal.Header>
           <Modal.Body>
             <Card body className="h-75">
-                <Form id='GroupSettingsForm'>
+                <Form id='InviteMemberForm' onSubmit={SubmitInviteMemberForm}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="User Name" />
+                        <Form.Label>User Email</Form.Label>
+                        <Form.Control name='email' type="text" required placeholder="User Email" />
                     </Form.Group>
                 </Form>
             </Card>
@@ -67,7 +91,7 @@ function GroupMembers(props) {
             <Button variant="secondary" onClick={() => setShowMembers(true) + setShowAddMember(false)}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={() => setShowAddMember(false)}>
+            <Button variant="primary" type='submit' form='InviteMemberForm'>
               Send Invite
             </Button>
           </Modal.Footer>

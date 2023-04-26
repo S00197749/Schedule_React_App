@@ -4,24 +4,40 @@ import CreateGroup from "./components/Groups/CreateGroup";
 import GroupSidebar from "./components/Groups/GroupSidebar";
 import Main from "./components/Main";
 import UserSchedule from "./components/Schedule/UserSchedule"
+import DisplayInvites from "./components/Members/DisplayInvites";
+import { Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 function App() {	
 	const [groups, setGroups] = useState([]);
 	const [showGroup, setShowGroup] = useState(0);
+	const [invites, setInvites] = useState([]);
+	const [showInvites, setShowInvites] = useState(false);
 
-  	const url = 'https://schedule-functions.azurewebsites.net/api/GetGroups?code=TiTW1hY4v3MoXwWStwX1CffVdyoP0pQqFXD9iCUdocCmAzFu9aFojA=='
-	const u = 1;
+	const u = 2;
 	
-	const fetchData = async () => {
+	const fetchGroupsData = async () => {
+		const url = 'https://schedule-functions.azurewebsites.net/api/GetGroups?code=TiTW1hY4v3MoXwWStwX1CffVdyoP0pQqFXD9iCUdocCmAzFu9aFojA=='
+
 		const result = await fetch(url + "&u=" + u)
 		const jsonResult = await result.json();
 
 		setGroups(jsonResult)
 	}
 
+	const fetchInvitesData = async () => {
+		const url = 'https://schedule-functions.azurewebsites.net/api/GetInvites?code=ajrDFkpGyJs6pyJjid8oxUYDtnq6tZqfESiEUDv8MGuEAzFug1oDWQ=='
+
+		const result = await fetch(url + "&u=" + u)
+		const jsonResult = await result.json();
+
+		setInvites(jsonResult)
+	}
+
 	React.useEffect(() => {
 
-		fetchData();
+		fetchGroupsData();
+		fetchInvitesData();
 	  },[]);
 
 	return (
@@ -31,7 +47,7 @@ function App() {
 				<ul class="sidebar-nav">
 					<li class="sidebar-item mt-2">
 						<a class="sidebar-link" href="#">
-							<CreateGroup></CreateGroup>
+							<CreateGroup user_Id={u}></CreateGroup>
 						</a>
 					</li>
 					<li class="sidebar-header mb-4">
@@ -47,6 +63,10 @@ function App() {
 					<a className="btn btn-primary justify-content-start" 
 						onClick={() => setShowGroup(0)}>
 						My Schedule
+					</a>
+					<a className="btn btn-success justify-content-start mx-4" 
+						onClick={() => setShowInvites(true)}>
+						Invites
 					</a>
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">
@@ -70,10 +90,42 @@ function App() {
 
 			<main class="content">
 				<div>
+					<Modal 
+					style={{
+					maxHeight: '580px',
+					margin: 0,
+					position: 'absolute',
+					top: '50%',
+					transform: 'translateY(-50%)'
+					}}
+					scrollable={true} 
+					backdrop="static" 
+					show={showInvites} 
+					onHide={() => setShowInvites(false)} 
+					animation={false} 
+					>
+						<Modal.Header closeButton>
+							<Modal.Title>My Invites</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+
+							{invites.map(invite =>
+								<DisplayInvites user_Id={u} invite={invite}></DisplayInvites>
+							)}
+
+						</Modal.Body>
+						<Modal.Footer>
+							<Button variant="secondary" onClick={() => setShowInvites(false)}>
+							Close
+							</Button>
+						</Modal.Footer>
+					</Modal>
+				</div>
+				<div>
 					{(() => {
 						if(showGroup === 0) {
 						return (
-							<UserSchedule user_Id={1}/>
+							<UserSchedule user_Id={u}/>
 						)
 						}
 					})()}
@@ -81,7 +133,7 @@ function App() {
 
 				{groups.map(group =>{
 					if(showGroup === group.group_Id)
-						return <Main group={group}></Main>					
+						return <Main group={group} user_Id={u}></Main>					
 					}							
 				)}
 			</main>

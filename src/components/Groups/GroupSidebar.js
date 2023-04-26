@@ -13,7 +13,7 @@ function GroupSidebar(props) {
 
           <li class="sidebar-item mb-4 mx-2">
             <a onClick={() => props.callSetShowGroup(group.group_Id)} class="nav-link d-none d-sm-inline-block">
-              <img src="img/avatars/avatar.png" class="avatar img-fluid rounded-circle" alt={group.group_Name} />
+              <img src="img/avatars/group-icon.jpg" class="avatar img-fluid rounded-circle" alt={group.group_Name} />
             </a>
           </li>
         </OverlayTrigger>

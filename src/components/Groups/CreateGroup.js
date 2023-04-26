@@ -17,7 +17,7 @@ function CreateGroup(props) {
       const url = "https://schedule-functions.azurewebsites.net/api/CreateGroup?code=RXJtbqPSpGBSBXrpLXzEvMpkE56T9HDGn7r5OsdJuR0AAzFuLjS-iQ==";
 
       const data = {
-        User_Id: 1
+        User_Id: props.user_Id
         , Group_Name: payload.groupName
         , Group_Description: payload.groupDesc}
         

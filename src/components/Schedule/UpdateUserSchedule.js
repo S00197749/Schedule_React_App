@@ -27,7 +27,7 @@ function UpdateUserSchedule(props) {
         const url = "https://schedule-functions.azurewebsites.net/api/UpdateUserSchedule?code=fMcvQGfAU97cMbDFgD-V-8hCyUKFoSPGmlpZAGkhfK4KAzFuxDCaxw==";
 
         const data = {
-            User_Id: 1
+            User_Id: props.user_Id
             , Timeslot_Id: props.timeSlot.timeslot_Id
             , UpdateRecurring: updateRecurring
             , Recurring_Id: props.timeSlot.recurring_Id
@@ -55,7 +55,7 @@ function UpdateUserSchedule(props) {
         const url = "https://schedule-functions.azurewebsites.net/api/RemoveUserSchedule?code=973ghZ3zHB5wbj8zXV-keaQ-tqJY1BQB6pUE0oggAMw2AzFuePyzHw==";
 
         const data = {
-            User_Id: 1
+            User_Id: props.user_Id
             , Timeslot_Id: props.timeSlot.timeslot_Id
             , RemoveRecurring: updateRecurring
             , Recurring_Id: props.timeSlot.recurring_Id

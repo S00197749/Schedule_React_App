@@ -14,7 +14,7 @@ function DisplayActivities(props) {
     const url = "https://schedule-functions.azurewebsites.net/api/RemoveActivity?code=j-1uYeaLSGUs4uLjIB-mGZU876Xob495wM5lJdvoqt3tAzFuLB9Now==";
 
     const data = {
-        User_Id: 1
+        User_Id: props.user_Id
         , Activity_Id: props.groupActivity.activity_Id
         , Group_Id: props.groupActivity.group_Id}
 
@@ -68,7 +68,7 @@ function DisplayActivities(props) {
               </Nav.Item>
             </Nav>
 
-            <UpdateActivity groupActivity={props.groupActivity} ></UpdateActivity>
+            <UpdateActivity user_Id={props.user_Id} groupActivity={props.groupActivity} ></UpdateActivity>
 
           </Modal.Body>
           <Modal.Footer>

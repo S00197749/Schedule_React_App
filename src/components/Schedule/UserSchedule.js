@@ -38,9 +38,9 @@ function GroupSchedule(props) {
     function contentTemplate(timeSlotProp) {
         return (<div>
                     {timeSlotProp.elementType === 'cell' ?
-                        <CreateUserSchedule timeSlot={timeSlotProp}></CreateUserSchedule>
+                        <CreateUserSchedule user_Id={props.user_Id} timeSlot={timeSlotProp}></CreateUserSchedule>
                     :                       
-                        <UpdateUserSchedule timeSlot={timeSlotProp}></UpdateUserSchedule>
+                        <UpdateUserSchedule user_Id={props.user_Id} timeSlot={timeSlotProp}></UpdateUserSchedule>
                     }
                 </div>);
     }
@@ -48,6 +48,11 @@ function GroupSchedule(props) {
         return (<div></div>);
     }
 
+    function onPopupOpen(args) { 
+        if(args.type === 'Editor')
+            args.cancel = true; 
+    } 
+    
     return(
         <>
         <div class="container-fluid p-0">
@@ -74,6 +79,7 @@ function GroupSchedule(props) {
                         isReadonly: 'isReadonly'
                     }
                 }}
+                popupOpen={onPopupOpen.bind(this)}
                 eventRendered={onEventRendered.bind(this)}
                 quickInfoTemplates={{
                     header: headerTemplate.bind(this),

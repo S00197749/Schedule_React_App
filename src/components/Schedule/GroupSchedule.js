@@ -1,56 +1,104 @@
 import React from "react";
 import { Inject,ScheduleComponent,Day,Week,Month,ViewsDirective, ViewDirective } from "@syncfusion/ej2-react-schedule";
-import { Button } from "react-bootstrap";
+import CreateGroupMeeting from "./CreateGroupMeeting";
+import UpdateGroupMeeting from "./UpdateGroupMeeting";
+import { useState } from "react";
 
 function GroupSchedule(props) {
-    const data = {
-        dataSource: [{
-            Subject: "Meeting",
-            EndTime: new Date(2023, 3, 25, 16, 30),
-            StartTime: new Date(2023, 3, 25, 14, 30)
-        },
-        {
-            Subject: "Meeting 2",
-            EndTime: new Date(2023, 3, 24, 20, 30),
-            StartTime: new Date(2023, 3, 24, 18, 30)
-        }]
+
+    const [groupSchedule, setGroupSchedule] = useState([]);
+
+    const fetchGroupScheduleData = async () => {
+        const url = "https://schedule-functions.azurewebsites.net/api/GetGroupAvailableTimes?code=1A0mlVR95wPp_w9rsqu2pTVu-4Zb_f5zC0yUDjcaXJE6AzFujcbqwQ==";
+
+        const u = props.user_Id;
+        const g = props.group.group_Id;
+
+		const groupScheduleResult = await fetch(url + "&g=" + g + "&u=" + u);
+		const groupScheduleJsonResult = await groupScheduleResult.json();
+
+		setGroupSchedule(groupScheduleJsonResult);
+	}
+
+    const data = groupSchedule;
+
+    React.useEffect(() => {
+
+        fetchGroupScheduleData();
+      },[]);
+
+    function onEventRendered(args) {
+        if(args.data.eventType == 'Available')
+            args.element.style.backgroundColor = '#7fa900';
+        else if((args.data.eventType != 'Available'))
+            args.element.style.backgroundColor = '#8e24aa';
+
+        //args.element.style.backgroundColor = '#7fa900';
     }
 
-    function editorTemplate(timeSlotProp) {
-        return ((timeSlotProp !== undefined) ? <div>{timeSlotProp.Subject }</div> : <div>Edit Event</div>);
-    }
-
-    function headerTemplate(props) {
+    function headerTemplate(timeSlotProp) {
         return (<div></div>);
     }
-    function contentTemplate(props) {
-        return (<div>
-                {props.elementType === 'cell' ?
-                    <div></div>
+    function contentTemplate(timeSlotProp) {
+        if(timeSlotProp.elementType != 'cell'){
+            return (<div>
+                {timeSlotProp.eventType != 'Available' ?
+                    <UpdateGroupMeeting 
+                        group_Id={props.group.group_Id} 
+                        user_Id={props.user_Id} 
+                        timeSlot={timeSlotProp} 
+                        callFetch={()=> fetchGroupScheduleData}>
+                    </UpdateGroupMeeting>
                 :
-                    <div></div>}
+                    <CreateGroupMeeting 
+                        group_Id={props.group.group_Id} 
+                        user_Id={props.user_Id} 
+                        timeSlot={timeSlotProp} 
+                        callFetch={()=> fetchGroupScheduleData}>
+                    </CreateGroupMeeting>}
             </div>);
+        }
+        else{
+            return(<div>Not Available</div>);
+        }
     }
-    function footerTemplate(props) {
+    function footerTemplate(timeSlotProp) {
         return (<div></div>);
     }
+
+    function onPopupOpen(args) { 
+        if(args.type === 'Editor')
+            args.cancel = true; 
+    } 
 
     return(
         <>
-            <ScheduleComponent height={"900px"} 
-            eventSettings={data}
-            quickInfoTemplates={{
-                header: headerTemplate.bind(this),
-                content: contentTemplate.bind(this),
-                footer: footerTemplate.bind(this)
-            }}>
-                <ViewsDirective>
-                    <ViewDirective option='Day' />
-                    <ViewDirective option='Week' />
-                    <ViewDirective option='Month' />
-                </ViewsDirective>
-                <Inject services={[Day, Week, Month]}/>
-            </ScheduleComponent>
+            <ScheduleComponent
+                height={"900px"}
+                eventSettings={{
+                    dataSource: data,
+                    fields:{
+                        id: 'timeslot_Id',
+                        subject: { title: 'Subject', name: 'eventType' },
+                        startTime: { title: 'From', name: 'startTime' },
+                        endTime: { title: 'To', name: 'endTime' },
+                        isReadonly: 'isReadonly'
+                    }
+                }}
+                eventRendered={onEventRendered.bind(this)}
+                popupOpen={onPopupOpen.bind(this)}
+                quickInfoTemplates={{
+                    header: headerTemplate.bind(this),
+                    content: contentTemplate.bind(this),
+                    footer: footerTemplate.bind(this)
+                }}>
+                    <ViewsDirective>
+                        <ViewDirective option='Day' />
+                        <ViewDirective option='Week' />
+                        <ViewDirective option='Month' />
+                    </ViewsDirective>
+                    <Inject services={[Day, Week, Month]}/>
+                </ScheduleComponent>	
         </>
     );
 }

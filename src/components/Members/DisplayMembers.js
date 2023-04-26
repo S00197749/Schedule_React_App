@@ -10,7 +10,7 @@ function DisplayMembers(props) {
     const url = "https://schedule-functions.azurewebsites.net/api/RemoveMember?code=2lgXACJVHNAdbLjC21iKPv-bfPsk336gPYnn0IUib4FpAzFuEH3Dww==";
 
     const data = {
-        User_Id: 1
+        User_Id: props.user_Id
         , Member_Id: props.groupMember.member_Id
         , Group_Id: props.groupMember.group_Id}
 

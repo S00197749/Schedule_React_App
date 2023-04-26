@@ -14,7 +14,7 @@ function UpdateGroup(props) {
         const url = "https://schedule-functions.azurewebsites.net/api/UpdateGroup?code=I85av-XCpOPQhAMW9u5XTfU9FD678b7XxpUlsX-o6zZjAzFuN560Bg==";
 
         const data = {
-            User_Id: 1
+            User_Id: props.user_Id
             , Group_Id: props.group.group_Id
             , Group_Name: payload.groupName
             , Group_Description: payload.groupDesc}
