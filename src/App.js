@@ -7,14 +7,20 @@ import UserSchedule from "./components/Schedule/UserSchedule"
 import DisplayInvites from "./components/Members/DisplayInvites";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 function App() {	
 	const [groups, setGroups] = useState([]);
 	const [showGroup, setShowGroup] = useState(0);
 	const [invites, setInvites] = useState([]);
 	const [showInvites, setShowInvites] = useState(false);
+	const [showSidebar, setShowSidebar] = useState(false);
 
-	const u = 2;
+	const u = 1;
 	
 	const fetchGroupsData = async () => {
 		const url = 'https://schedule-functions.azurewebsites.net/api/GetGroups?code=TiTW1hY4v3MoXwWStwX1CffVdyoP0pQqFXD9iCUdocCmAzFu9aFojA=='
@@ -42,51 +48,50 @@ function App() {
 
 	return (
 	<div class="wrapper">
-		<nav id="sidebar" class="custom-sidebar">
-			<div class="sidebar-content js-simplebar">
-				<ul class="sidebar-nav">
-					<li class="sidebar-item mt-2">
-						<a class="sidebar-link" href="#">
-							<CreateGroup user_Id={u}></CreateGroup>
-						</a>
-					</li>
-					<li class="sidebar-header mb-4">
-						--------
-					</li>
-					<GroupSidebar callSetShowGroup={(group_Id)=> setShowGroup(group_Id)} groups={groups}></GroupSidebar>
-				</ul>
-			</div>
-		</nav>
 		<div class="main">
-			<nav class="navbar navbar-expand navbar-light navbar-bg">
-				<div class="navbar-collapse collapse d-flex justify-content-start">
-					<a className="btn btn-primary justify-content-start" 
+			{[false].map((expand) => (
+			<Navbar bg="light" expand={expand} className="mb-3 p-0 d-flex flex-row" height="20px">
+				<Container fluid>
+					<Navbar.Brand href="#">
+						<Navbar.Toggle className="me-4"/>
+						<a className="btn btn-primary justify-content-start" 
 						onClick={() => setShowGroup(0)}>
-						My Schedule
-					</a>
-					<a className="btn btn-success justify-content-start mx-4" 
+							My Schedule
+						</a>
+						<a className="btn btn-success justify-content-start ms-3" 
 						onClick={() => setShowInvites(true)}>
-						Invites
-					</a>
-					<ul class="navbar-nav navbar-align">
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-								<i class="align-middle" data-feather="settings"></i>
-							</a>
-							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.png" class="avatar img-fluid rounded-circle me-1" alt="Group" />
-							</a>
-							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i> Profile</a>							
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Settings</a>
-								<a class="dropdown-item" href="#">Help</a>
-								<a class="dropdown-item" href="#">Sign out</a>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</nav>
+							Invites
+						</a>
+					</Navbar.Brand>
+					<NavDropdown 
+					drop="start"
+					title={<img src="img/avatars/avatar.png" class="rounded-circle" alt="Profile" />}>
+							<NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+							<NavDropdown.Item href="#action4">
+								Another action
+							</NavDropdown.Item>
+							<NavDropdown.Divider />
+							<NavDropdown.Item href="#action5">
+								Logout
+							</NavDropdown.Item>
+					</NavDropdown>
+					<Navbar.Offcanvas bg="dark" placement="start" style={{width:'110px', backgroundColor:"grey"}}>	
+						<Offcanvas.Header closeButton placement="start">
+							<Offcanvas.Title>
+							uFree?
+							</Offcanvas.Title>
+						</Offcanvas.Header>
+						<Offcanvas.Body>
+							<Nav className="justify-content-end flex-grow-1 pe-3">
+								<div className="mb-3 ms-1"><CreateGroup user_Id={u}></CreateGroup></div>
+								<div className="border-top my-3"></div>
+								<GroupSidebar callSetShowGroup={(group_Id)=> setShowGroup(group_Id)} groups={groups}></GroupSidebar>
+							</Nav>
+						</Offcanvas.Body>
+					</Navbar.Offcanvas>
+				</Container>
+			</Navbar>
+			))}
 
 			<main class="content">
 				<div>
