@@ -63,7 +63,8 @@ function Main(props) {
         <div class="row mb-2 mb-xl-3">
           <GroupSchedule 
           user_Id={props.user_Id} 
-          group={props.group}>
+          group={props.group}
+          groupActivities={groupActivities}>
             </GroupSchedule>		      
         </div>
       </div>

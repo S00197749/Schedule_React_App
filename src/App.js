@@ -18,7 +18,7 @@ function App() {
 	const [invites, setInvites] = useState([]);
 	const [showInvites, setShowInvites] = useState(false);
 
-	const u = 2;
+	const u = 1;
 	
 	const fetchGroupsData = async () => {
 		const url = 'https://schedule-functions.azurewebsites.net/api/GetGroups?code=TiTW1hY4v3MoXwWStwX1CffVdyoP0pQqFXD9iCUdocCmAzFu9aFojA=='
@@ -51,25 +51,19 @@ function App() {
 			<Navbar style={{backgroundColor:"lightgrey"}} expand={expand} className="mb-3 p-0 d-flex flex-row" height="20px">
 				<Container fluid>
 					<Navbar.Brand href="#">
-						<Navbar.Toggle className="me-4 ms-0 p-1" style={{borderColor:"black"}}/>
-						<a className="btn btn-primary justify-content-start " 
-						onClick={() => setShowGroup(0)}>
-							Schedule
-						</a>
-						<a className="btn btn-success justify-content-start ms-3" 
-						onClick={() => setShowInvites(true)}>
-							Invites
-						</a>
+						<Navbar.Toggle className="p-1" style={{borderColor:"black"}}/>
 					</Navbar.Brand>
 					<NavDropdown 
 					drop="start"
-					title={<img src="img/avatars/avatar.png" class="avatar rounded-circle " alt="Profile" />}>
-							<NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-							<NavDropdown.Item href="#action4">
-								Another action
+					title={<img src="img/avatars/avatar.png" class="avatar rounded-circle " alt="Profile" />}>							
+							<NavDropdown.Item href="#" onClick={() => setShowGroup(0)}>
+								My Schedule
+							</NavDropdown.Item>
+							<NavDropdown.Item href="#" onClick={() => setShowInvites(true)}>
+								Invites
 							</NavDropdown.Item>
 							<NavDropdown.Divider />
-							<NavDropdown.Item href="#action5">
+							<NavDropdown.Item href="#">
 								Logout
 							</NavDropdown.Item>
 					</NavDropdown>

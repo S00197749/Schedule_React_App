@@ -10,7 +10,6 @@ function ManageGroup(props) {
     const [showSettings, setShowSettings] = useState(false);
     const [showActivities, setShowActivities] = useState(false);
     const [showCreateActivity, setShowCreateActivity] = useState(false);
-    const [showUpdateActivity, setShowUpdateActivity] = useState(false);
 
     return (
       <>
@@ -83,8 +82,7 @@ function ManageGroup(props) {
                 fetchActivitiesData={()=> props.fetchActivitiesData()}
                 callShowSettings={()=> setShowSettings(true)+ setShowActivities(false) + setShowCreateActivity(false)}
                 callShowActivities={()=> setShowActivities(true) + setShowCreateActivity(false) + setShowSettings(false)}
-                callHideActivities={()=> setShowActivities(false)}
-                callShowUpdateActivity={()=> setShowUpdateActivity(true)}>
+                callHideActivities={()=> setShowActivities(false)}>
               </DisplayActivities>
             )}
 

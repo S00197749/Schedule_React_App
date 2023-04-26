@@ -39,7 +39,7 @@ function CreateGroup(props) {
           placement="right"
           delay={{ show: 250, hide: 400 }}
           overlay={<Tooltip className='mt-2'>Create a Group</Tooltip>}>
-          <a onClick={() => setShowCreateGroup(true)}>
+          <a onClick={() => setShowCreateGroup(true)} href='#'>
             <img src="img/avatars/add-icon.png" class="mt-1 img-fluid rounded-circle" alt="User" />
           </a>
         </OverlayTrigger>

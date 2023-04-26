@@ -1,6 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import { Button } from 'react-bootstrap';
 
 function CreateGroupMeeting(props) { 
@@ -10,18 +11,12 @@ function CreateGroupMeeting(props) {
         const formData = new FormData(e.target);
         const payload = Object.fromEntries(formData);    
 
-        var isRecurring = "false";
-
-        if(payload.isRecurring == "true"){
-            isRecurring = payload.isRecurring;
-        }
-
         const url = "https://schedule-functions.azurewebsites.net/api/CreateMeeting?code=6d0hX6veeQI0m1lUTpPxcKYwjelTm2YukrAD0M0klghRAzFu_eJFQQ==";
 
         const data = {
             User_Id: props.user_Id
             , Group_Id: props.group_Id
-            , Activity_Id: 1
+            , Activity_Id: payload.activity_Id
             , StartTime: payload.startTime
             , EndTime: payload.endTime}
 
@@ -48,7 +43,11 @@ function CreateGroupMeeting(props) {
                     <br></br>
                     <DateTimePickerComponent name="endTime" format='yyyy/MM/dd HH:mm:ss' value={new Date(props.timeSlot.endTime)} className="e-field"></DateTimePickerComponent>        
                     <br></br>
-                    <br></br>   
+                    <br></br>  
+                    <DropDownListComponent name="activity_Id" placeholder='Choose Activity' data-name='activity_Name' className="e-field" style={{ width: '100%' }}
+                        dataSource={props.groupActivities}
+                        fields={{text: 'activity_Name', value: 'activity_Id'}}>
+                    </DropDownListComponent> 
                     <div>
                         
                     </div>                     

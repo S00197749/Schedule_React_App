@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
+import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns/src';
 
 function UpdateGroupMeeting(props) { 
     const [showConfirmDeleteMeeting, setShowConfirmDeleteMeeting] = useState(false);
@@ -13,19 +14,13 @@ function UpdateGroupMeeting(props) {
         const formData = new FormData(e.target);
         const payload = Object.fromEntries(formData);    
 
-        var isRecurring = "false";
-
-        if(payload.isRecurring == "true"){
-            isRecurring = payload.isRecurring;
-        }
-
         const url = "https://schedule-functions.azurewebsites.net/api/UpdateMeeting?code=_A-ACGmXT-s2yTG05tCevBFReggL7wMblzd25-GxLZ0SAzFuRCKGVg==";
 
         const data = {
             User_Id: props.user_Id
             , Meeting_Id: props.timeSlot.meeting_Id
             , Group_Id: props.group_Id
-            , Activity_Id: 1
+            , Activity_Id: payload.activity_Id
             , StartTime: payload.startTime
             , EndTime: payload.endTime}
 
@@ -74,9 +69,16 @@ function UpdateGroupMeeting(props) {
                     <DateTimePickerComponent name="endTime" format='yyyy/MM/dd HH:mm:ss' value={new Date(props.timeSlot.endTime)} className="e-field"></DateTimePickerComponent>        
                     <br></br>
                     <br></br>   
-                    <div>
-                        
-                    </div>                     
+                    <DropDownListComponent 
+                        name="activity_Id" 
+                        placeholder='Choose Activity' 
+                        text={props.timeSlot.activity_Name} 
+                        value={props.timeSlot.activity_Id} data-name='activity_Name' c
+                        lassName="e-field" 
+                        style={{ width: '100%' }}
+                        dataSource={props.groupActivities}
+                        fields={{text: 'activity_Name', value: 'activity_Id'}}>
+                    </DropDownListComponent>                   
                 </Form>
             </Card>
             <Card style={{ height: '20px' }}>

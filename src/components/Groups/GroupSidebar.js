@@ -12,7 +12,7 @@ function GroupSidebar(props) {
           overlay={<Tooltip>{group.group_Name}</Tooltip>}>
 
           <li class="sidebar-item my-2 mx-2">
-            <a onClick={() => props.callSetShowGroup(group.group_Id)}>
+            <a onClick={() => props.callSetShowGroup(group.group_Id)} href='#'>
               <img src="img/avatars/group-icon2.jpg" class="img-fluid rounded-circle" alt={group.group_Name} />
             </a>
           </li>

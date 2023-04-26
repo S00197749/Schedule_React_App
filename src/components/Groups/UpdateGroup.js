@@ -3,8 +3,10 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
 
 function UpdateGroup(props) {
+    const [showConfirmDeleteGroup, setShowConfirmDeleteGroup] = useState(false);
 
     const SubmitUpdateGroupForm = async (e) => {
         e.preventDefault()
@@ -29,6 +31,25 @@ function UpdateGroup(props) {
 
         props.fetchGroupsData();
     }
+
+    const DeleteGroup = async (e) => {
+
+        const url = "https://schedule-functions.azurewebsites.net/api/RemoveGroup?code=rrMlHcCgrlFiAt7KOO5lkPmy9xwmnEj4NhtsNbpaFt2kAzFui2b46g==";
+    
+        const data = {
+            User_Id: props.user_Id
+            , Group_Id: props.group.group_Id}
+    
+        await fetch(url, {
+            method: 'DELETE',
+            headers: {  "Content-Type": "application/json"  },
+            body: JSON.stringify(data)
+        }).then(()=>{
+            console.log('Updated')
+        })
+    
+        props.fetchGroupsData();
+      }
 
     return (
         <>
@@ -55,14 +76,35 @@ function UpdateGroup(props) {
                     </Form>
                 </Card>
             </Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={() => props.callHideSettings()}>
-                Close
-            </Button>
-            <Button type='submit' form='UpdateGroupForm' variant="primary">
-                Save Changes
-            </Button>
+            <Modal.Footer className='justify-content-start'>
+                <div className='me-auto'>
+                    <Button variant="danger" onClick={() => setShowConfirmDeleteGroup(true)}>
+                        Delete Group
+                    </Button>
+                </div>
+                <Button type='submit' form='UpdateGroupForm' variant="primary">
+                    Save Changes
+                </Button>
             </Modal.Footer>
+
+            <Modal size="sm" backdrop="static" show={showConfirmDeleteGroup} onHide={() => setShowConfirmDeleteGroup(false)} animation={false} centered>
+                <div style={{border: '1px solid black', borderRadius: '10px', backgroundColor: 'whitesmoke'}}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm Deletion</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body >
+                        <h3 style={{textAlign: "center"}}>Are you sure you want to delete the following group: <br></br> "{props.group.group_Name}"?</h3>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowConfirmDeleteGroup(false)}>
+                        Cancel
+                        </Button>
+                        <Button  onClick={() => DeleteGroup() + setShowConfirmDeleteGroup(false)} variant="danger">
+                        Delete
+                        </Button>         
+                    </Modal.Footer>
+                </div>       
+            </Modal>
         </>
     );
 }

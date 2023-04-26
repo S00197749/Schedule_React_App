@@ -16,11 +16,11 @@ function UpdateUserSchedule(props) {
         var isRecurring = "false";
         var updateRecurring = "false";
 
-        if(payload.isRecurring == "true"){
+        if(payload.isRecurring === "true"){
             isRecurring = payload.isRecurring;
         }
 
-        if(payload.updateRecurring == "true"){
+        if(payload.updateRecurring === "true"){
             updateRecurring = payload.updateRecurring;
         }
 
@@ -49,7 +49,6 @@ function UpdateUserSchedule(props) {
 
     const DeleteUserSchedule = async (e) => {
 
-        var isRecurring = "false";
         var updateRecurring = "false";
 
         const url = "https://schedule-functions.azurewebsites.net/api/RemoveUserSchedule?code=973ghZ3zHB5wbj8zXV-keaQ-tqJY1BQB6pUE0oggAMw2AzFuePyzHw==";

@@ -12,7 +12,7 @@ function CreateUserSchedule(props) {
 
         var isRecurring = "false";
 
-        if(payload.isRecurring == "true"){
+        if(payload.isRecurring === "true"){
             isRecurring = payload.isRecurring;
         }
 

@@ -17,7 +17,7 @@ function CreateActivity(props) {
         var limit;
         var min_Members;
 
-        if(payload.limit == undefined){
+        if(payload.limit === undefined){
             limit = "false";
             min_Members = 0;
         }
