@@ -9,7 +9,7 @@ function DisplayInvites(props) {
   const [accepted, setAccepted] = useState(false);
 
   const UpdateInvite = async (e) => {
-    const url = "https://schedule-functions.azurewebsites.net/api/UpdateMeeting?code=_A-ACGmXT-s2yTG05tCevBFReggL7wMblzd25-GxLZ0SAzFuRCKGVg==";
+    const url = "https://schedule-functions.azurewebsites.net/api/UpdateInvite?code=F6yL-7rHpTPSPDS3W5hFuLT5rQ5Wg2cNDZKvZBmRripRAzFuL3ZRdw==";
 
     const data = {
         User_Id: props.user_Id
@@ -41,12 +41,12 @@ function DisplayInvites(props) {
             </div>
             <div className='col-3 col-sm-2'>
               <span>
-                <Button onClick={() => setShowConfirmAccept(true)} variant='danger'>Reject</Button>
+                <Button onClick={() => setAccepted(false) + setShowConfirmAccept(true)} variant='danger'>Reject</Button>
               </span>
             </div>
             <div className='col-2 col-sm-2'>
               <span>
-                <Button onClick={() => setShowConfirmAccept(true)} variant='success'>Join</Button>
+                <Button onClick={() => setAccepted(true) + setShowConfirmAccept(true)} variant='success'>Join</Button>
               </span>
             </div>
           </div>
@@ -65,7 +65,7 @@ function DisplayInvites(props) {
             <Button variant="secondary" onClick={() => setShowConfirmReject(false)}>
               Cancel
             </Button>
-            <Button  onClick={() => setAccepted(false) + UpdateInvite()} variant="danger">
+            <Button  onClick={() => UpdateInvite()} variant="danger">
               Reject
             </Button>         
           </Modal.Footer>
@@ -84,7 +84,7 @@ function DisplayInvites(props) {
             <Button variant="secondary" onClick={() => setShowConfirmAccept(false)}>
               Cancel
             </Button>
-            <Button  onClick={() => setAccepted(true) + UpdateInvite()} variant="success">
+            <Button  onClick={() => UpdateInvite()} variant="success">
               Join
             </Button>         
           </Modal.Footer>
