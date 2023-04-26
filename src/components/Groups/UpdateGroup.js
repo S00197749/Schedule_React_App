@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 function UpdateGroup(props) {
 
     const SubmitUpdateGroupForm = async (e) => {
-        //e.preventDefault()
+        e.preventDefault()
         const formData = new FormData(e.target);
         const payload = Object.fromEntries(formData);
 
@@ -26,6 +26,8 @@ function UpdateGroup(props) {
         }).then(()=>{
             console.log('Updated')
         })
+
+        window.location.reload(false);
     }
 
     return (

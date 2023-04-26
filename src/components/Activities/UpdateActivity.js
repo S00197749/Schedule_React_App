@@ -7,7 +7,7 @@ function UpdateActivity(props) {
     const [text, setText] = useState(props.groupActivity.minimum_Members);
 
     const SubmitUpdateActivityForm = async (e) => {
-        //e.preventDefault()
+        e.preventDefault()
         const formData = new FormData(e.target);
         const payload = Object.fromEntries(formData);    
 
@@ -42,6 +42,7 @@ function UpdateActivity(props) {
             console.log('Updated')
         })
 
+        window.location.reload(false);
     }
 
     return (

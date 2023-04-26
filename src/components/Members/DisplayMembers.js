@@ -7,7 +7,6 @@ function DisplayMembers(props) {
   const [showConfirmDeleteMember, setShowConfirmDeleteMember] = useState(false);
 
   const DeleteMember = async (e) => {
-    //e.preventDefault()
     const url = "https://schedule-functions.azurewebsites.net/api/RemoveMember?code=2lgXACJVHNAdbLjC21iKPv-bfPsk336gPYnn0IUib4FpAzFuEH3Dww==";
 
     const data = {
@@ -23,6 +22,7 @@ function DisplayMembers(props) {
         console.log('Updated')
     })
 
+    window.location.reload(false);
   }
     return (
       <>

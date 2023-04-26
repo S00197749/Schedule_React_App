@@ -10,7 +10,7 @@ function CreateActivity(props) {
     const [text, setText] = useState(0);
 
     const SubmitCreateActivityForm = async (e) => {
-        //e.preventDefault()
+        e.preventDefault()
         const formData = new FormData(e.target);
         const payload = Object.fromEntries(formData);    
 
@@ -43,6 +43,8 @@ function CreateActivity(props) {
         }).then(()=>{
             console.log('Updated')
         })
+
+        window.location.reload(false);
     }
 
     return (

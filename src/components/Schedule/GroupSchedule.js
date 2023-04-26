@@ -1,5 +1,6 @@
 import React from "react";
 import { Inject,ScheduleComponent,Day,Week,Month,ViewsDirective, ViewDirective } from "@syncfusion/ej2-react-schedule";
+import { Button } from "react-bootstrap";
 
 function GroupSchedule(props) {
     const data = {
@@ -19,9 +20,30 @@ function GroupSchedule(props) {
         return ((timeSlotProp !== undefined) ? <div>{timeSlotProp.Subject }</div> : <div>Edit Event</div>);
     }
 
+    function headerTemplate(props) {
+        return (<div></div>);
+    }
+    function contentTemplate(props) {
+        return (<div>
+                {props.elementType === 'cell' ?
+                    <div></div>
+                :
+                    <div></div>}
+            </div>);
+    }
+    function footerTemplate(props) {
+        return (<div></div>);
+    }
+
     return(
         <>
-            <ScheduleComponent height={"900px"} editorTemplate={editorTemplate.bind(this)} eventSettings={data} >
+            <ScheduleComponent height={"900px"} 
+            eventSettings={data}
+            quickInfoTemplates={{
+                header: headerTemplate.bind(this),
+                content: contentTemplate.bind(this),
+                footer: footerTemplate.bind(this)
+            }}>
                 <ViewsDirective>
                     <ViewDirective option='Day' />
                     <ViewDirective option='Week' />

@@ -10,7 +10,7 @@ function DisplayActivities(props) {
   const [showConfirmDeleteActivity, setShowConfirmDeleteActivity] = useState(false);
 
   const DeleteActivity = async (e) => {
-    //e.preventDefault()
+
     const url = "https://schedule-functions.azurewebsites.net/api/RemoveActivity?code=j-1uYeaLSGUs4uLjIB-mGZU876Xob495wM5lJdvoqt3tAzFuLB9Now==";
 
     const data = {
@@ -26,6 +26,7 @@ function DisplayActivities(props) {
         console.log('Updated')
     })
 
+    window.location.reload(false);
   }
 
   return (

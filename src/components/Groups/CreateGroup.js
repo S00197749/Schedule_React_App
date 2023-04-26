@@ -10,7 +10,7 @@ function CreateGroup(props) {
     const [showCreateGroup, setShowCreateGroup] = useState(false);
   
     const SubmitCreateGroupForm = async (e) => {
-      //e.preventDefault()
+      e.preventDefault()
       const formData = new FormData(e.target);
       const payload = Object.fromEntries(formData);
 
@@ -28,6 +28,8 @@ function CreateGroup(props) {
       }).then(()=>{
           console.log('Updated')
       })
+
+      window.location.reload(false);
     }
 
     return (
